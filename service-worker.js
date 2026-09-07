@@ -1,4 +1,4 @@
-const CACHE_NAME='physics-8-v5';
+const CACHE_NAME='physics-8-v6';
 const FILES=[
   './manifest.json',
   './search-v2.js',
@@ -9,7 +9,7 @@ const FILES=[
 
 function addSmartSearch(html) {
   if (html.includes('search-v2.js')) return html;
-  return html.replace('</body>', '<script src="./search-v2.js?v=2"></script>\n</body>');
+  return html.replace('</body>', '<script src="./search-v2.js?v=3"></script>\n</body>');
 }
 
 async function pageResponse(request) {
