@@ -1,21 +1,27 @@
-const CACHE_NAME='physics-8-v6';
+const CACHE_NAME='physics-8-v7';
 const FILES=[
   './manifest.json',
+  './paragraph-3.js',
   './search-v2.js',
   './icon-180.png',
   './icon-192.png',
   './icon-512.png'
 ];
 
-function addSmartSearch(html) {
-  if (html.includes('search-v2.js')) return html;
-  return html.replace('</body>', '<script src="./search-v2.js?v=3"></script>\n</body>');
+function enhanceHtml(html) {
+  if (!html.includes('paragraph-3.js')) {
+    html = html.replace('</body>', '<script src="./paragraph-3.js?v=1"></script>\n</body>');
+  }
+  if (!html.includes('search-v2.js')) {
+    html = html.replace('</body>', '<script src="./search-v2.js?v=3"></script>\n</body>');
+  }
+  return html;
 }
 
 async function pageResponse(request) {
   try {
     const network = await fetch(request, {cache:'no-store'});
-    const html = addSmartSearch(await network.text());
+    const html = enhanceHtml(await network.text());
     const response = new Response(html, {
       status: network.status,
       statusText: network.statusText,
@@ -35,7 +41,7 @@ self.addEventListener('install', event => {
     await cache.addAll(FILES);
     try {
       const raw = await fetch('./index.html', {cache:'no-store'});
-      const html = addSmartSearch(await raw.text());
+      const html = enhanceHtml(await raw.text());
       await cache.put('./index.html', new Response(html, {headers:{'Content-Type':'text/html; charset=utf-8'}}));
     } catch (e) {}
   })());
