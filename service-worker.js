@@ -1,7 +1,8 @@
-const CACHE_NAME='physics-8-v7';
+const CACHE_NAME='physics-8-v8';
 const FILES=[
   './manifest.json',
   './paragraph-3.js',
+  './paragraph-4.js',
   './search-v2.js',
   './icon-180.png',
   './icon-192.png',
@@ -11,6 +12,9 @@ const FILES=[
 function enhanceHtml(html) {
   if (!html.includes('paragraph-3.js')) {
     html = html.replace('</body>', '<script src="./paragraph-3.js?v=1"></script>\n</body>');
+  }
+  if (!html.includes('paragraph-4.js')) {
+    html = html.replace('</body>', '<script src="./paragraph-4.js?v=1"></script>\n</body>');
   }
   if (!html.includes('search-v2.js')) {
     html = html.replace('</body>', '<script src="./search-v2.js?v=3"></script>\n</body>');
